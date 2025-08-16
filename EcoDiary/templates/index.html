@@ -11,14 +11,14 @@
         <div class="container">
             <h1 class="logo">🌿 EcoDiary</h1>
             <div class="nav-buttons">
-                <button class="btn">Войти</button>
-                <button class="btn btn-outline">Регистрация</button>
+                <a href="{{ url_for('logout') }}"><button class="btn">Выйти</button></a>
             </div>
         </div>
     </nav>
 
     <!-- Главный экран с картинкой -->
     <header class="hero">
+        <h2>Привет, {{ username }}!</h2>
         <h2>Твой личный помощник в заботе о планете 🌍</h2>
         <p>Начни путь к экологичному будущему прямо сейчас</p>
         <button class="btn btn-big">Начать путь</button>
