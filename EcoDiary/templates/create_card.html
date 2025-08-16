@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать карточку</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: #28a745;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .poll-options {
+            margin-top: 20px;
+        }
+
+        .poll-options label {
+            display: flex;
+            /* ставим флекс-контейнер */
+            align-items: center;
+            /* вертикальное выравнивание по центру */
+            justify-content: flex-start;
+            /* выравниваем содержимое по левому краю */
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .poll-options input[type="checkbox"] {
+            margin: 0 10px 0 0;
+            /* справа от чекбокса текст с отступом */
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Создать карточку</h2>
+        <form method="POST" action="{{ url_for('create_card') }}">
+            <input type="text" name="title" placeholder="Заголовок" required>
+            <input type="text" name="subtitle" placeholder="Подзаголовок" required>
+            <textarea name="text" rows="6" placeholder="Текст заметки..." required></textarea>
+            <div class="poll-options">
+                <label><input type="checkbox" name="poll_options" value="10"> Отсортировал мусор (10 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Выключил свет (5 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="3"> Использовал сумку вместо пакета (3
+                    балла)</label>
+                <label><input type="checkbox" name="poll_options" value="8"> Закрыл кран во время чистки зубов (8
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="7"> Поехал на работу на велосипеде (7
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="6"> Не использовал пластиковую бутылку (6
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="4"> Покормил птиц (4 балла)</label>
+                <label><input type="checkbox" name="poll_options" value="9"> Сдал батарейки в переработку (9
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Не использовал одноразовую посуду (5
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="8"> Посадил растение (8 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="10"> Принял участие в уборке территории (10
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="7"> Снизил использование бумаги (7
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="6"> Использовал общественный транспорт (6
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="4"> Поделился эко-советом с другом (4
+                    балла)</label>
+                <label><input type="checkbox" name="poll_options" value="9"> Выключил ненужные электроприборы (9
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Использовал эко-сумку в магазине (5
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="8"> Сделал компост (8 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="10"> Участвовал в эко-мероприятии (10
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="7"> Переработал старую одежду (7
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="6"> Экономил воду при мытье посуды (6
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="4"> Написал пост о защите природы (4
+                    балла)</label>
+                <label><input type="checkbox" name="poll_options" value="9"> Не покупал продукты в пластике (9
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Поддержал локального производителя (5
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="8"> Снизил потребление мяса (8 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="10"> Участвовал в волонтёрской акции (10
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="7"> Чистил мусор на природе (7 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="6"> Использовал вторичное сырьё (6
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="4"> Дал совет по экономии энергии (4
+                    балла)</label>
+                <label><input type="checkbox" name="poll_options" value="9"> Перешёл на электронные счета (9
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Купил эко-продукт (5 баллов)</label>
+            </div>
+
+            <button type="submit">Создать</button>
+        </form>
+        <a href="{{ url_for('cards') }}" style="display:block; text-align:center; margin-top:15px;">Назад к
+            карточкам</a>
+    </div>
+</body>
+
+</html>
