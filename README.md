@@ -71,3 +71,21 @@
 | База данных   | SQLAlchemy                         |
 | Git/IDE       | GitHub, VS Code / PyCharm          |
 
+
+---
+
+## Референсы, которые мне пригодятся
+- [Flask Mega-Tutorial by Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) — большая пошаговая серия статей по Flask.  
+- [GitHub: Eco Tracker App](https://github.com/rajeevratan84/Eco-Tracker) — похожий проект для экопривычек.  
+- [Flask Examples](https://github.com/pallets/flask/tree/main/examples) — официальные примеры Flask-приложений.  
+
+---
+
+## Гайды-статьи, где есть полезная для меня информация
+- Короткий гид по Flask (маршруты, шаблоны, базы данных) — [Flask Documentation](https://flask.palletsprojects.com/en/3.0.x/).  
+- Как использовать Jinja для HTML-шаблонов — [Jinja Docs](https://jinja.palletsprojects.com/en/3.1.x/).  
+- Работа с Bootstrap в Flask (UI и формы) — [Bootstrap & Flask](https://hackersandslackers.com/flask-bootstrap/).  
+- Визуализация данных в Python — [Matplotlib Guide](https://matplotlib.org/stable/tutorials/index.html).  
+
+---
+
