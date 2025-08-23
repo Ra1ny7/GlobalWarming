@@ -1,74 +1,349 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f5fe 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            position: relative;
+            overflow: hidden;
         }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 320px;
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(139, 195, 74, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(76, 175, 80, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        input {
+
+        body::after {
+            content: '';
+            position: fixed;
             width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            height: 100%;
+            background:
+                linear-gradient(45deg, transparent 30%, rgba(139, 195, 74, 0.03) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(76, 175, 80, 0.02) 50%, transparent 70%);
+            animation: gentleMove 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
         }
+
+        @keyframes gentleMove {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(10px, -10px) rotate(0.5deg);
+            }
+
+            50% {
+                transform: translate(-5px, 5px) rotate(-0.3deg);
+            }
+
+            75% {
+                transform: translate(8px, 8px) rotate(0.2deg);
+            }
+        }
+
+        .register-container {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow:
+                0 12px 45px rgba(45, 90, 45, 0.15),
+                0 4px 15px rgba(139, 195, 74, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            width: 350px;
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            position: relative;
+            backdrop-filter: blur(15px);
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #66bb6a, #4caf50, #8bc34a, #81c784, #66bb6a);
+            background-size: 300% 100%;
+            animation: flow 3s linear infinite;
+            border-radius: 25px 25px 0 0;
+        }
+
+        @keyframes flow {
+            0% {
+                background-position: 0% 0;
+            }
+
+            100% {
+                background-position: 300% 0;
+            }
+        }
+
+        .register-container::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #66bb6a 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2d5a2d;
+            font-weight: 600;
+            font-size: 1.6rem;
+            position: relative;
+        }
+
+        .register-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d5a2d;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+
+        label::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 3px;
+            background: #66bb6a;
+            border-radius: 50%;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            border-radius: 15px;
+            font-size: 14px;
+            font-family: inherit;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            color: #2d5a2d;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #66bb6a;
+            box-shadow:
+                0 0 0 4px rgba(139, 195, 74, 0.2),
+                0 4px 12px rgba(76, 175, 80, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder,
+        input[type="email"]::placeholder {
+            color: #81a981;
+            transition: opacity 0.3s;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder,
+        input[type="email"]::placeholder {
+            opacity: 0.6;
+        }
+
         button {
             width: 100%;
-            padding: 10px;
-            background: #007BFF;
+            padding: 16px;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
             border: none;
+            border-radius: 25px;
             color: white;
             font-size: 16px;
-            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
             margin-top: 10px;
         }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
         button:hover {
-            background: #0069d9;
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
         }
-        .link {
-            text-align: center;
-            margin-top: 10px;
+
+        button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
         }
-        .link a {
-            color: #007BFF;
+
+        .login-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-top: 25px;
+            font-size: 14px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(139, 195, 74, 0.05) 0%, rgba(76, 175, 80, 0.08) 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(139, 195, 74, 0.15);
+            position: relative;
+        }
+
+        .login-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.3), transparent);
+        }
+
+        .login-link a {
+            color: #4a7c59;
             text-decoration: none;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
         }
-        .link a:hover {
-            text-decoration: underline;
+
+        .login-link a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-link a:hover::before {
+            left: 100%;
+        }
+
+        .login-link a:hover {
+            color: #2d5a2d;
+            background: rgba(139, 195, 74, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(139, 195, 74, 0.2);
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
+    <div class="register-container">
         <h2>Вход</h2>
         <form method="POST" action="/login">
-            <input type="text" name="username" placeholder="Имя пользователя" required>
-            <input type="password" name="password" placeholder="Пароль" required>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Имя пользователя</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
             <button type="submit">Войти</button>
         </form>
-        <div class="link">
+        <div class="login-link">
             Нет аккаунта? <a href="/register">Зарегистрироваться</a>
         </div>
     </div>
 </body>
+
 </html>

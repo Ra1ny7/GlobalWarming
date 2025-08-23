@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Спасибо!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f5fe 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139, 195, 74, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 75% 75%, rgba(76, 175, 80, 0.1) 0%, transparent 60%);
+            animation: celebration 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        @keyframes celebration {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: scale(1.1) rotate(2deg);
+                opacity: 1;
+            }
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(139, 195, 74, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 40%);
+            animation: gentleFloat 12s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -15px) rotate(1deg); }
+            50% { transform: translate(-10px, 10px) rotate(-1deg); }
+            75% { transform: translate(15px, -5px) rotate(0.5deg); }
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #2d5a2d;
+            margin-bottom: 30px;
+            font-weight: 700;
+            position: relative;
+            animation: bounceIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-shadow: 0 4px 8px rgba(45, 90, 45, 0.1);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3) translateY(-50px);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #66bb6a, #4caf50, #8bc34a, #81c784);
+            border-radius: 4px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { 
+                opacity: 0.7;
+                transform: translateX(-50%) scaleX(1);
+                box-shadow: 0 0 10px rgba(139, 195, 74, 0.3);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateX(-50%) scaleX(1.2);
+                box-shadow: 0 0 20px rgba(139, 195, 74, 0.6);
+            }
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #8bc34a, #66bb6a);
+            border-radius: 3px;
+            animation: sparkle 2s ease-in-out infinite 0.5s;
+        }
+
+        p {
+            font-size: 1.3rem;
+            color: #4a7c59;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+            animation: slideUp 1s ease-out 0.3s both;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 253, 248, 0.9) 100%);
+            padding: 25px 35px;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 25px rgba(45, 90, 45, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        p::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 20px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        p::after {
+            content: '✨';
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            font-size: 18px;
+            animation: twinkle 2s ease-in-out infinite 1s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.6;
+                transform: scale(1) rotate(0deg);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
+            }
+        }
+
+        a {
+            display: inline-block;
+            padding: 18px 35px;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 35px;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.8px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 1s ease-out 0.6s both;
+        }
+
+        a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        a:hover::before {
+            left: 100%;
+        }
+
+        a::after {
+            content: '🏠';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        a:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-8px);
+        }
+
+        a:hover {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
+            padding-right: 55px;
+        }
+
+        a:active {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Конфетти анимация */
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Декоративные элементы для праздничной атмосферы */
+        body {
+            position: relative;
+        }
+
+        .celebration-particles::before,
+        .celebration-particles::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #66bb6a;
+            border-radius: 50%;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        .celebration-particles::before {
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .celebration-particles::after {
+            right: 20%;
+            animation-delay: 1.5s;
+            background: #8bc34a;
+        }
+
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                padding: 20px 25px;
+            }
+            
+            a {
+                padding: 16px 30px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Спасибо, {{ name }}! 🌍</h2>
+    <p>Ваш отзыв сохранён. Мы ценим вашу заботу о проекте!</p>
+    <a href="{{ url_for('index') }}">Вернуться на главную</a>
+</body>
+</html>

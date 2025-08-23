@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рейтинг</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            /* Фон с плавным градиентом, как в предыдущих примерах */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f5fe 100%);
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Добавление фоновых эффектов из вашего предыдущего стиля */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(139, 195, 74, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(76, 175, 80, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            /* Светлый градиент и более выразительная тень для контейнера */
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            /* Увеличил отступы для "воздуха" */
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            border-radius: 25px;
+            /* Более скругленные углы */
+            box-shadow:
+                0 12px 45px rgba(45, 90, 45, 0.15),
+                0 4px 15px rgba(139, 195, 74, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            transition: transform 0.3s ease;
+            /* Добавил плавный переход */
+        }
+
+        /* Эффект легкого "поднятия" при наведении на контейнер */
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 18px 55px rgba(45, 90, 45, 0.2),
+                0 6px 20px rgba(139, 195, 74, 0.15);
+        }
+
+        h2 {
+            /* Более выразительный заголовок с акцентной линией */
+            text-align: center;
+            margin-bottom: 30px;
+            /* Увеличил отступ */
+            color: #2d5a2d;
+            font-weight: 600;
+            font-size: 1.6rem;
+            position: relative;
+        }
+
+        h2::after {
+            /* Акцентная линия под заголовком, как в примере с формой */
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a);
+            border-radius: 2px;
+        }
+
+        canvas {
+            /* Слегка скругленные углы для графика */
+            width: 100% !important;
+            height: 400px !important;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #f0f8f0 0%, #ffffff 100%);
+            box-shadow: inset 0 2px 10px rgba(76, 175, 80, 0.05);
+        }
+
+        .back {
+            /* Стиль для кнопки или ссылки "Назад" */
+            display: inline-block;
+            /* Изменил на inline-block для лучшего форматирования */
+            text-align: center;
+            margin-top: 30px;
+            /* Увеличил отступ */
+            text-decoration: none;
+            color: #4a7c59;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            background: rgba(139, 195, 74, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .back:hover {
+            /* Эффект при наведении */
+            color: #2d5a2d;
+            background: rgba(139, 195, 74, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>📊 Ваш рейтинг по дням</h2>
+        <canvas id="scoreChart"></canvas>
+        <a href="{{ url_for('index') }}" class="back">⬅ Назад на главную</a>
+        <a href="{{ url_for('cards') }}" class="back">⬅ К карточкам</a>
+    </div>
+
+<script>
+    fetch("/get_scores")
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById("scoreChart").getContext("2d");
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Баллы за день",
+                        data: data.scores,
+                        borderColor: "#28a745",
+                        backgroundColor: "rgba(40,167,69,0.2)",
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: "#28a745",
+                        pointBorderColor: "#fff",
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    // Отображает дату из labels
+                                    return tooltipItems[0].label;
+                                },
+                                label: function(tooltipItem) {
+                                    // Отображает баллы
+                                    const score = tooltipItem.dataset.data[tooltipItem.dataIndex];
+                                    return `Баллы: ${score}`;
+                                },
+                                afterLabel: function(tooltipItem) {
+                                    // Отображает похвалу после баллов
+                                    const thanksMessage = data.thanks[tooltipItem.dataIndex];
+                                    return thanksMessage;
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        intersect: false
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: "Баллы" }
+                        },
+                        x: {
+                            title: { display: true, text: "Дата" }
+                        }
+                    }
+                }
+            });
+        });
+</script>
+</body>
+
+</html>

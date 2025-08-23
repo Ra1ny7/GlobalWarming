@@ -7,72 +7,230 @@
     <title>Создать карточку</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f5fe 100%);
             display: flex;
             justify-content: center;
             align-items: flex-start;
             padding-top: 50px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 25% 30%, rgba(139, 195, 74, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 70%, rgba(76, 175, 80, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow:
+                0 8px 32px rgba(45, 90, 45, 0.15),
+                0 2px 8px rgba(139, 195, 74, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             width: 400px;
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #66bb6a, #4caf50, #8bc34a, #81c784);
+            border-radius: 20px 20px 0 0;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            color: #2d5a2d;
+            font-weight: 600;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a);
+            border-radius: 2px;
         }
 
         input,
         textarea {
             width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            color: #2d5a2d;
+            box-sizing: border-box;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #66bb6a;
+            box-shadow:
+                0 0 0 3px rgba(139, 195, 74, 0.2),
+                0 2px 8px rgba(76, 175, 80, 0.15);
+            background: #ffffff;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #81a981;
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            background: #28a745;
+            padding: 14px;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
             border: none;
-            border-radius: 8px;
+            border-radius: 25px;
             color: white;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        button:hover::before {
+            left: 100%;
         }
 
         button:hover {
-            background: #218838;
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         .poll-options {
-            margin-top: 20px;
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fdf8 0%, #ffffff 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            box-shadow: inset 0 2px 8px rgba(139, 195, 74, 0.05);
         }
 
         .poll-options label {
             display: flex;
-            /* ставим флекс-контейнер */
             align-items: center;
-            /* вертикальное выравнивание по центру */
             justify-content: flex-start;
-            /* выравниваем содержимое по левому краю */
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-size: 14px;
+            color: #2d5a2d;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .poll-options label:hover {
+            background: rgba(139, 195, 74, 0.1);
         }
 
         .poll-options input[type="checkbox"] {
-            margin: 0 10px 0 0;
-            /* справа от чекбокса текст с отступом */
-            width: 16px;
-            height: 16px;
+            margin: 0 15px 0 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #66bb6a;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .poll-options input[type="checkbox"]:focus {
+            outline: 2px solid rgba(139, 195, 74, 0.5);
+            outline-offset: 2px;
+        }
+
+        .back-link {
+            display: inline-block;
+            text-align: center;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(139, 195, 74, 0.1) 0%, rgba(76, 175, 80, 0.15) 100%);
+            color: #2d5a2d;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-link::before {
+            content: '← ';
+            margin-right: 8px;
+        }
+
+        .back-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .back-link:hover::after {
+            left: 100%;
+        }
+
+        .back-link:hover {
+            background: linear-gradient(135deg, rgba(139, 195, 74, 0.2) 0%, rgba(76, 175, 80, 0.25) 100%);
+            border-color: #66bb6a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
         }
     </style>
 </head>
@@ -82,67 +240,70 @@
         <h2>Создать карточку</h2>
         <form method="POST" action="{{ url_for('create_card') }}">
             <input type="text" name="title" placeholder="Заголовок" required>
-            <input type="text" name="subtitle" placeholder="Подзаголовок" required>
-            <textarea name="text" rows="6" placeholder="Текст заметки..." required></textarea>
+            <input type="text" name="subtitle" placeholder="Подзаголовок">
+            <textarea name="text" rows="6" placeholder="Текст заметки..."></textarea>
             <div class="poll-options">
-                <label><input type="checkbox" name="poll_options" value="10"> Отсортировал мусор (10 баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="5"> Выключил свет (5 баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="3"> Использовал сумку вместо пакета (3
+                <label><input type="checkbox" name="poll_options" value="10"> Отсортировал(-а) мусор (10
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Выключил(-а) свет (5 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="3"> Использовал(-а) сумку вместо пакета (3
                     балла)</label>
-                <label><input type="checkbox" name="poll_options" value="8"> Закрыл кран во время чистки зубов (8
+                <label><input type="checkbox" name="poll_options" value="8"> Закрыл(-а) кран во время чистки зубов (8
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="7"> Поехал на работу на велосипеде (7
+                <label><input type="checkbox" name="poll_options" value="7"> Поехал(-а) на работу на велосипеде (7
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="6"> Не использовал пластиковую бутылку (6
+                <label><input type="checkbox" name="poll_options" value="6"> Не использовал(-а) пластиковую бутылку (6
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="4"> Покормил птиц (4 балла)</label>
-                <label><input type="checkbox" name="poll_options" value="9"> Сдал батарейки в переработку (9
+                <label><input type="checkbox" name="poll_options" value="4"> Покормил(-а) птиц (4 балла)</label>
+                <label><input type="checkbox" name="poll_options" value="9"> Сдал(-а) батарейки в переработку (9
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="5"> Не использовал одноразовую посуду (5
+                <label><input type="checkbox" name="poll_options" value="5"> Не использовал(-а) одноразовую посуду (5
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="8"> Посадил растение (8 баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="10"> Принял участие в уборке территории (10
+                <label><input type="checkbox" name="poll_options" value="8"> Посадил(-а) растение (8 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="10"> Принял(-а) участие в уборке территории (10
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="7"> Снизил использование бумаги (7
+                <label><input type="checkbox" name="poll_options" value="7"> Снизил(-а) использование бумаги (7
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="6"> Использовал общественный транспорт (6
+                <label><input type="checkbox" name="poll_options" value="6"> Использовал(-а) общественный транспорт (6
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="4"> Поделился эко-советом с другом (4
+                <label><input type="checkbox" name="poll_options" value="4"> Поделился(-ась) эко-советом с другом (4
                     балла)</label>
-                <label><input type="checkbox" name="poll_options" value="9"> Выключил ненужные электроприборы (9
+                <label><input type="checkbox" name="poll_options" value="9"> Выключил(-а) ненужные электроприборы (9
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="5"> Использовал эко-сумку в магазине (5
+                <label><input type="checkbox" name="poll_options" value="5"> Использовал(-а) эко-сумку в магазине (5
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="8"> Сделал компост (8 баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="10"> Участвовал в эко-мероприятии (10
+                <label><input type="checkbox" name="poll_options" value="8"> Сделал(-а) компост (8 баллов)</label><br>
+                <label><input type="checkbox" name="poll_options" value="10"> Участвовал(-а) в эко-мероприятии (10
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="7"> Переработал старую одежду (7
+                <label><input type="checkbox" name="poll_options" value="7"> Переработал(-а) старую одежду (7
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="6"> Экономил воду при мытье посуды (6
+                <label><input type="checkbox" name="poll_options" value="6"> Экономил(-а) воду при мытье посуды (6
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="4"> Написал пост о защите природы (4
+                <label><input type="checkbox" name="poll_options" value="4"> Написал(-а) пост о защите природы (4
                     балла)</label>
-                <label><input type="checkbox" name="poll_options" value="9"> Не покупал продукты в пластике (9
+                <label><input type="checkbox" name="poll_options" value="9"> Не покупал(-а) продукты в пластике (9
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="5"> Поддержал локального производителя (5
+                <label><input type="checkbox" name="poll_options" value="5"> Поддержал(-а) локального производителя (5
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="8"> Снизил потребление мяса (8 баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="10"> Участвовал в волонтёрской акции (10
+                <label><input type="checkbox" name="poll_options" value="8"> Снизил(-а) потребление мяса (8
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="7"> Чистил мусор на природе (7 баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="6"> Использовал вторичное сырьё (6
+                <label><input type="checkbox" name="poll_options" value="10"> Участвовал(-а) в волонтёрской акции (10
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="4"> Дал совет по экономии энергии (4
+                <label><input type="checkbox" name="poll_options" value="7"> Чистил(-а) мусор на природе (7
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="6"> Использовал(-а) вторичное сырьё (6
+                    баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="4"> Дал(-а) совет по экономии энергии (4
                     балла)</label>
-                <label><input type="checkbox" name="poll_options" value="9"> Перешёл на электронные счета (9
+                <label><input type="checkbox" name="poll_options" value="9"> Перешёл(-а) на электронные счета (9
                     баллов)</label>
-                <label><input type="checkbox" name="poll_options" value="5"> Купил эко-продукт (5 баллов)</label>
+                <label><input type="checkbox" name="poll_options" value="5"> Купил(-а) эко-продукт (5
+                    баллов)</label>
             </div>
 
             <button type="submit">Создать</button>
         </form>
-        <a href="{{ url_for('cards') }}" style="display:block; text-align:center; margin-top:15px;">Назад к
-            карточкам</a>
+        <a href="{{ url_for('cards') }}" class="back-link">Назад к карточкам</a>
     </div>
 </body>
 

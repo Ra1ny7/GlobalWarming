@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>EcoDiary 🌍</title>
     <link rel="stylesheet" href="static/css/style.css">
 </head>
+
 <body>
     <!-- Навигация -->
     <nav class="navbar">
@@ -15,15 +17,18 @@
             </div>
         </div>
     </nav>
-
     <!-- Главный экран с картинкой -->
     <header class="hero">
         <h2>Привет, {{ username }}!</h2>
         <h2>Твой личный помощник в заботе о планете 🌍</h2>
         <p>Начни путь к экологичному будущему прямо сейчас</p>
-        <a href="{{ url_for('cards') }}"><button class="btn btn-big">Начать путь</button></a>
     </header>
-
+    <!-- Цитата -->
+    <section class="quote">
+        <blockquote>
+            {{quote}}
+        </blockquote>
+    </section>
     <!-- Возможности -->
     <section class="features">
         <h2>Что ты сможешь делать?</h2>
@@ -37,29 +42,24 @@
             <div class="card">
                 <img src="static/img/progress.jpg" alt="Прогресс">
                 <h3>📊 Эко-рейтинг</h3>
-                <p>Считай свой вклад и смотри прогресс.</p>
-                <button class="btn">Узнать рейтинг</button>
+                <p>Отмечай свой вклад и смотри прогресс.</p>
+                <a href="{{ url_for('stats') }}"><button class="btn">Узнать рейтинг</button></a>
             </div>
             <div class="card">
                 <img src="static/img/ideas.jpg" alt="Советы">
                 <h3>💡 Советы</h3>
                 <p>Получай идеи, как стать экологичнее каждый день.</p>
-                <button class="btn">Получить совет</button>
+                <a href="{{ url_for('tips') }}"><button class="btn">Получить советы</button></a>
             </div>
         </div>
     </section>
-
-    <!-- Цитата -->
-    <section class="quote">
-        <blockquote>
-            «Мы не унаследовали Землю у наших предков,  
-            мы взяли её взаймы у наших детей.»
-        </blockquote>
+    <section class="section">
+        <a href="{{ url_for('feedback') }}">Обратная связь</a>
     </section>
-
     <!-- Футер -->
     <footer class="footer">
         <p>© 2025 EcoDiary | Сделано с заботой о планете 🌿</p>
     </footer>
 </body>
+
 </html>

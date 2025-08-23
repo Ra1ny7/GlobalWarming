@@ -1,25 +1,220 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои карточки</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f0f2f5; }
-        .header { text-align:center; padding:30px 20px 20px 20px; background:linear-gradient(135deg, #74ebd5, #ACB6E5); color:white; border-bottom-left-radius:20px; border-bottom-right-radius:20px; }
-        .btn { display:inline-block; padding:10px 20px; margin:10px 0; background:#667eea; color:white; text-decoration:none; font-weight:bold; border-radius:25px; transition:all 0.3s ease; }
-        .btn:hover { background:#764ba2; transform:translateY(-2px); }
-        main { max-width:900px; margin:30px auto; padding:0 15px; }
-        .cards-list { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:20px; list-style:none; }
-        .card { background:white; border-radius:15px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:transform 0.3s, box-shadow 0.3s; }
-        .card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
-        .card-link { display:block; text-decoration:none; color:inherit; padding:20px; }
-        .card-title { font-size:1.2rem; font-weight:bold; margin-bottom:10px; }
-        .card-subtitle { font-size:1rem; color:#555; }
-        footer { text-align:center; margin:30px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f5fe 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(139, 195, 74, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(76, 175, 80, 0.06) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .header {
+            text-align: center;
+            padding: 35px 20px 25px 20px;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 30%, #8bc34a 70%, #81c784 100%);
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow:
+                0 6px 25px rgba(76, 175, 80, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 12px 0;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .cards-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            list-style: none;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            border-radius: 20px;
+            box-shadow:
+                0 6px 25px rgba(45, 90, 45, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a, #4caf50);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 12px 35px rgba(45, 90, 45, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #2d5a2d;
+            position: relative;
+        }
+
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a);
+            transition: width 0.3s;
+            border-radius: 1px;
+        }
+
+        .card:hover .card-title::after {
+            width: 30px;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            color: #4a7c59;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            color: #4a7c59;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a);
+            border-radius: 1px;
+        }
     </style>
 </head>
+
 <body>
     <header class="header">
         <h1>Мои карточки</h1>
@@ -39,6 +234,8 @@
     </main>
     <footer>
         <a href="{{ url_for('index') }}" class="btn">Назад на главную</a>
+        <a href="{{ url_for('stats') }}" class="btn">Рейтинг</a>
     </footer>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,53 +8,156 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            color: #333;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e1f5fe 100%);
+            color: #2d5a2d;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            position: relative;
         }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .container {
             max-width: 700px;
             margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow:
+                0 8px 32px rgba(45, 90, 45, 0.12),
+                0 2px 8px rgba(139, 195, 74, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            position: relative;
+            backdrop-filter: blur(10px);
         }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #66bb6a, #4caf50, #8bc34a, #81c784);
+            border-radius: 25px 25px 0 0;
+        }
+
         h1 {
             font-size: 2rem;
             margin-bottom: 10px;
+            color: #2d5a2d;
+            text-shadow: 0 2px 4px rgba(45, 90, 45, 0.1);
+            position: relative;
         }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #8bc34a);
+            border-radius: 2px;
+        }
+
         h2 {
             font-size: 1.2rem;
-            color: #555;
+            color: #4a7c59;
             margin-bottom: 20px;
+            font-weight: 500;
         }
+
         p {
             font-size: 1rem;
             line-height: 1.6;
+            color: #2d5a2d;
         }
+
         .poll-score {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e0f7fa;
-            border-radius: 10px;
-            font-weight: bold;
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+            border-radius: 15px;
+            font-weight: 600;
+            color: #2d5a2d;
+            border-left: 4px solid #66bb6a;
+            box-shadow:
+                0 4px 15px rgba(139, 195, 74, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            position: relative;
+            overflow: hidden;
         }
+
+        .poll-score::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(139, 195, 74, 0.05) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
         a.btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #667eea;
+            margin-top: 25px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
             color: white;
             text-decoration: none;
             border-radius: 25px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow:
+                0 4px 15px rgba(76, 175, 80, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
+
+        a.btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        a.btn:hover::before {
+            left: 100%;
+        }
+
         a.btn:hover {
-            background: #764ba2;
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            transform: translateY(-2px);
+            box-shadow:
+                0 6px 20px rgba(76, 175, 80, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>{{ card.title }}</h1>
@@ -61,10 +165,12 @@
         <p>{{ card.text }}</p>
 
         <div class="poll-score">
-            Баллы за сегодня: {{ card.poll_score }}
+            Баллы за опрос: {{ card.poll_score }}<br>
+            {{ thanks }}
         </div>
 
         <a href="{{ url_for('cards') }}" class="btn">Назад к карточкам</a>
     </div>
 </body>
+
 </html>

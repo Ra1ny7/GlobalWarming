@@ -1,96 +1,305 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Более сложный градиент */
+    background: linear-gradient(135deg, #ccffcc 0%, #ffffff 50%, #e0f7fa 100%);
+    color: #2d5a2d;
     text-align: center;
+    position: relative; /* Для позиционирования псевдоэлементов фона */
+    overflow-x: hidden; /* Предотвращение горизонтальной прокрутки из-за анимации */
+}
+
+/* Легкие полупрозрачные круги на фоне */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
+    background-image: radial-gradient(circle, rgba(144, 238, 144, 0.1) 1px, transparent 1px),
+                      radial-gradient(circle, transparent 10px, rgba(173, 216, 230, 0.05) 15px);
+    background-size: 50px 50px, 75px 75px;
+    opacity: 0.7;
+    z-index: -2;
+    animation: moveBackground 30s linear infinite;
+}
+
+/* Волнистые линии, добавляющие органичности */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"%3E%3Cpath d="M0 0c166.5 21 333.5 42 500 42S833.5 21 1000 0v100H0V0z" fill="rgba(173, 216, 230, 0.08)"/%3E%3C/svg%3E');
+    background-repeat: repeat-x;
+    background-size: contain;
+    opacity: 0.5;
+    animation: waveMove 15s linear infinite alternate;
+    z-index: -1;
+}
+
+@keyframes moveBackground {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 50px 50px, 75px 75px; }
+}
+
+@keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.33%); }
 }
 
 .navbar {
-    background: #2e7d32;
+    background: linear-gradient(90deg, #2d5a2d 0%, #4a7c59 100%);
     padding: 15px;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 20px rgba(45, 90, 45, 0.3);
+    backdrop-filter: blur(10px);
 }
 
-.logo { margin: 0; }
+.logo {
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
 
 .hero {
-    background: url("../img/forest.jpg") no-repeat center center/cover;
+    background: linear-gradient(
+        rgba(45, 90, 45, 0.4), 
+        rgba(74, 124, 89, 0.6)
+    ), url("../img/forest.jpg") no-repeat center center/cover;
     background-size: cover;
     color: white;
     padding: 100px 20px;
-    text-shadow: 1px 1px 5px black;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(139, 195, 74, 0.2) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .btn {
-    padding: 10px 20px;
-    background: #4caf50;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-.btn:hover { background: #388e3c; }
+.btn:hover {
+    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
 
 .btn-outline {
     background: transparent;
-    border: 2px solid white;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 .btn-outline:hover {
-    background: white;
-    color: #2e7d32;
+    background: rgba(255, 255, 255, 0.95);
+    color: #2d5a2d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
 
 .btn-big {
-    padding: 15px 40px;
+    padding: 18px 45px;
     font-size: 18px;
+    border-radius: 30px;
 }
 
-.features { padding: 40px 20px; }
+.features {
+    padding: 60px 20px;
+    background: linear-gradient(180deg, #f8fdf8 0%, rgba(139, 195, 74, 0.05) 50%, #ffffff 100%);
+}
 
 .cards {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fdf8 100%);
+    border-radius: 20px;
+    padding: 25px;
     width: 250px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    box-shadow: 
+        0 8px 32px rgba(45, 90, 45, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(139, 195, 74, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.card:hover::before {
+    left: 100%;
 }
 
 .card img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 15px;
     margin-bottom: 15px;
+    transition: transform 0.3s ease;
 }
 
-.card:hover { transform: scale(1.05); }
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 16px 40px rgba(45, 90, 45, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
 
 .quote {
-    background: #e8f5e9;
-    padding: 40px;
+    background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+    padding: 50px;
     font-size: 20px;
     font-style: italic;
+    position: relative;
+    color: #2d5a2d;
+    box-shadow: inset 0 4px 20px rgba(139, 195, 74, 0.1);
+}
+
+.quote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #66bb6a, #4caf50, #8bc34a);
 }
 
 .footer {
-    background: #2e7d32;
+    background: linear-gradient(135deg, #2d5a2d 0%, #1b4332 100%);
     color: white;
-    padding: 15px;
+    padding: 20px;
     margin-top: 30px;
+    box-shadow: 0 -4px 20px rgba(45, 90, 45, 0.2);
+    position: relative;
 }
 
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.5), transparent);
+}
 
+.section {
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(139, 195, 74, 0.05) 0%, rgba(76, 175, 80, 0.08) 100%);
+    border-radius: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 
+        0 6px 20px rgba(45, 90, 45, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(139, 195, 74, 0.2);
+    position: relative;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #66bb6a, #8bc34a, #4caf50);
+    border-radius: 20px 20px 0 0;
+}
+
+.section a {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.section a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.section a:hover::before {
+    left: 100%;
+}
+
+.section a::after {
+    content: '💬';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.section a:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(-5px);
+}
+
+.section a:hover {
+    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    padding-right: 50px;
+}
